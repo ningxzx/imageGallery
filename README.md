@@ -1,6 +1,9 @@
-# imageGallery
+##  imageGallery
 
-> My astonishing Nuxt.js project
+- nuxt
+- koa
+
+enojoy coding.
 
 
 

@@ -1,7 +1,10 @@
-
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+
+import router from './route'
+import bodyParser from 'koa-bodyparser'
+import cors from '@koa/cors'
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
@@ -21,7 +24,7 @@ async function start() {
     await builder.build()
   }
 
-  app.use(ctx => {
+  router.get('/', ctx => {
     ctx.status = 200 // koa defaults to 404 when it sees that status is unset
 
     return new Promise((resolve, reject) => {
@@ -33,6 +36,13 @@ async function start() {
       })
     })
   })
+
+  app
+    .use(cors())
+    .use(bodyParser())
+    .use(router.routes())
+    .use(router.allowedMethods());
+
 
   app.listen(port, host)
   consola.ready({
