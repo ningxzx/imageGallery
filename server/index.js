@@ -2,29 +2,40 @@ const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
-import router from './route'
-import bodyParser from 'koa-bodyparser'
-import cors from '@koa/cors'
+import config from './config'
+import middlewares from './middlewares'
+import serve from 'koa-static'
+import path from 'path'
+
 
 const app = new Koa()
 const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const port = process.env.PORT || config.server.port
 
 // Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(app.env === 'production')
+let nuxtConfig = require('../nuxt.config.js')
+nuxtConfig.dev = !(app.env === 'production')
 
 async function start() {
   // Instantiate nuxt.js
-  const nuxt = new Nuxt(config)
+  const nuxt = new Nuxt(nuxtConfig)
 
   // Build in development
-  if (config.dev) {
+  if (nuxtConfig.dev) {
     const builder = new Builder(nuxt)
     await builder.build()
   }
 
-  router.get('/', ctx => {
+  // access to local file
+  const gallery = path.resolve(__dirname, config.static_dir.gallery);
+  app.use(serve(gallery))
+
+
+  // Middlewares are imported here.
+  middlewares(app)
+
+  app.use(async (ctx, next) => {
+    await next()
     ctx.status = 200 // koa defaults to 404 when it sees that status is unset
 
     return new Promise((resolve, reject) => {
@@ -36,13 +47,6 @@ async function start() {
       })
     })
   })
-
-  app
-    .use(cors())
-    .use(bodyParser())
-    .use(router.routes())
-    .use(router.allowedMethods());
-
 
   app.listen(port, host)
   consola.ready({
