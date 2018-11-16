@@ -5,15 +5,16 @@
   "author": "zhenxing.xiang",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --exec babel-node --watch server",
-    "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production babel-node server/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --exec backpack --watch server",
+    "build": " backpack build",
+    "start": "cross-env NODE_ENV=production node build/index.js",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
+    "consola": "^2.2.6",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
     "koa": "^2.5.2",
@@ -29,6 +30,7 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
     "babel-preset-env": "^1.7.0",
+    "backpack-core": "^0.8.2",
     "eslint": "^5.0.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-vue": "^4.0.0",
