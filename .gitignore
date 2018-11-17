@@ -79,3 +79,9 @@ dist
 
 # IDE
 .idea
+
+# 图片文件夹
+/gallery
+
+#node build文件夹
+/build

@@ -12,8 +12,8 @@ const capsToBlank = compose(addBlank,toLower)
  * 页面显示：优先中文，英文驼峰转空格
  */
 export const getImageName = compose(
-    replace(/[A-Z]/g)(capsToBlank),
+    toLower,
+    replace(/(?<=\w+)([A-Z])/g,capsToBlank),
     replace(/.*-([^-]+)\.\w+$/, '$1')
 )
 
-console.log(getImageName('20181120-botswana-littleElephant.jpeg'))
