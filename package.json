@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --exec backpack --watch server",
+    "test": "mocha",
     "build": "nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production node build/main.js",
     "generate": "nuxt generate",
@@ -23,7 +24,10 @@
     "koa-mount": "^4.0.0",
     "koa-static": "^5.0.0",
     "koa-trie-router": "^2.1.6",
-    "nuxt": "^2.2.0"
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
+    "nuxt": "^2.2.0",
+    "ramda": "^0.25.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -34,6 +38,7 @@
     "eslint": "^5.0.1",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-vue": "^4.0.0",
+    "mocha": "^5.2.0",
     "nodemon": "^1.11.0"
   }
 }

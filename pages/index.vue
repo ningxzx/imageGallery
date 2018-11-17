@@ -1,8 +1,10 @@
 <template>
   <section class="container">
-    <ul>
-      <li v-for="image in images" :key="image.id">
-          <img :src="image.src" :alt="image.alt">
+    <ul class="image-list">
+      <li class="image-card" v-for="(image,index) in images" :key="index" v-if="images.length">
+        <div class="image-wrapper">
+          <img :src="host+image.src" :alt="image.name">
+          </div>
       </li>
     </ul>
   </section>
@@ -10,22 +12,52 @@
 
 <script>
 import Logo from "~/components/Logo.vue";
+import { mapgetter, mapState } from "vuex";
+import { getImageName } from "~/utils";
+const host = "http://localhost:3000/";
 
 export default {
   components: {
     Logo
   },
   async asyncData({ app }) {
-    const data = await app.$axios.$get("/api/images");
-    console.log(data);
+    const res = await app.$axios.$get("/api/images");
+    return {
+      images: res.data.map(img => {
+        return {
+          src: img,
+          name:getImageName(img)
+        };
+      })
+    };
   },
   data() {
     return {
-      images: []
+      images: [],
+      host
     };
   }
 };
 </script>
 
-<style>
+<style lang="less">
+.image-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 4%;
+  .image-card {
+    list-style: none;
+    width: 30%;
+    margin-bottom: 4%;
+    font-size: 0;
+    .image-wrapper {
+      border-radius: 6px;
+      img {
+        width: 100%;
+        border-radius: 6px;
+      }
+    }
+  }
+}
 </style>
