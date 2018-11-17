@@ -10,7 +10,7 @@
     ]
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --exec backpack --watch server",
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --exec babel-node --watch server",
     "test": "mocha --require babel-register --recursive",
     "build": "nuxt build && backpack build",
     "start": "cross-env NODE_ENV=production node build/main.js",
@@ -23,6 +23,7 @@
     "consola": "^2.2.6",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",
+    "gm": "^1.23.1",
     "koa": "^2.5.2",
     "koa-bodyparser": "^4.2.1",
     "koa-connect": "^2.0.1",

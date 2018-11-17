@@ -1,7 +1,6 @@
 import { curry, compose, replace, toLower } from 'ramda'
 
 const addBlank = str => ' '+str
-const capsToBlank = compose(addBlank,toLower)
 /**
  * 解析图片名称
  * @param {*} imgName 图片名称
@@ -13,7 +12,7 @@ const capsToBlank = compose(addBlank,toLower)
  */
 export const getImageName = compose(
     toLower,
-    replace(/(?<=\w+)([A-Z])/g,capsToBlank),
-    replace(/.*-([^-]+)\.\w+$/, '$1')
+    replace(/(?<=\w+)([A-Z])/g,addBlank),
+    replace(/(.*-)?([^-]+)\.\w+$/, '$2')
 )
 

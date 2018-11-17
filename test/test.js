@@ -12,5 +12,8 @@ describe('utils', function () {
         it('20181120-帕劳-珊瑚.jpeg should return 珊瑚', function () {
             assert.equal(getImageName('20181120-帕劳-珊瑚.jpeg'), '珊瑚');
         });
+        it('dog.jpeg should return dog', function () {
+            assert.equal(getImageName('dog.jpeg'), 'dog');
+        });
     });
 });
