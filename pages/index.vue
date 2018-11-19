@@ -1,7 +1,7 @@
 <template> 
   <section class="container">
     <div class="menu">
-      <div class="plus"></div>
+      <div class="plus" @click.prevent="centerDialogVisible=true"></div>
       <div class="poem">
         <p>Let life be beautiful</p>
         <p>like summer flower</p>
@@ -20,18 +20,37 @@
           </div>
       </li>
     </ul>
+    <el-dialog
+      title="上传图片"
+      :visible.sync="centerDialogVisible"
+      width="30%">
+      <el-upload
+        class="upload-demo"
+        drag
+        action="/api/uploadPic"
+        multiple>
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+      </el-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </section>
 </template>
 
 <script>
-import Logo from "~/components/Logo.vue";
-import { mapgetter, mapState } from "vuex";
-import { getImageName } from "~/utils";
+import { getImageName,compressImage } from "~/utils";
+import { Dialog, Upload } from "element-ui";
+
 const host = "http://localhost:3000/";
 
 export default {
   components: {
-    Logo
+    Dialog,
+    Upload
   },
   async asyncData({ app }) {
     const res = await app.$axios.$get("/api/images");
@@ -47,7 +66,8 @@ export default {
   data() {
     return {
       images: [],
-      host
+      host,
+      centerDialogVisible: false
     };
   }
 };
@@ -60,13 +80,15 @@ export default {
   box-sizing: border-box;
   width: 100%;
   .menu {
-    position: fixed;
+    position: absolute;
     width: 200px;
     left: 0;
     .plus {
+      position: fixed;
       background: url("../assets/images/plus.png") no-repeat;
       background-position: center;
       height: 60px;
+      width: 200px;
       background-size: 50px 50px;
       margin-top: 40px;
       cursor: pointer;
@@ -78,7 +100,7 @@ export default {
       text-align: center;
       box-sizing: border-box;
       padding: 10px;
-      font-size: 10px;
+      font-size: 14px;
       font-family: "BukhariScript";
     }
   }
