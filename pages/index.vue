@@ -12,8 +12,6 @@
     <ul class="image-list">
       <li class="image-card" v-for="(image,index) in images" :key="index" v-if="images.length">
           <div class="image-wrapper">
-            <!-- TODO:后续采取瀑布流的形式加载 -->
-            <!-- <img :src="host+image.src" :alt="image.name"> -->
             <div class="image" :style="{backgroundImage:`url(${host+image.src})`}"></div>
             <p class="image-name">{{image.name}}</p>
             <p class="image-date">{{image.date||'2019-09-01'}}</p>
@@ -24,11 +22,7 @@
       title="上传图片"
       :visible.sync="centerDialogVisible"
       width="30%">
-      <el-upload
-        class="upload-demo"
-        drag
-        action="/api/uploadPic"
-        multiple>
+      <el-upload class="upload-demo"  action="/api/uploadPic"  :limit="5" drag multiple>
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -42,7 +36,13 @@
 </template>
 
 <script>
-import { getImageName,compressImage } from "~/utils";
+/**
+ * TODO:
+ * 后续采取瀑布流的形式加载
+ * 上传图片ui待优化
+ */
+
+import { getImageName, compressImage } from "~/utils";
 import { Dialog, Upload } from "element-ui";
 
 const host = "http://localhost:3000/";
@@ -69,6 +69,11 @@ export default {
       host,
       centerDialogVisible: false
     };
+  },
+  methods:{
+    uploadFile(){
+
+    }
   }
 };
 </script>
