@@ -2,6 +2,10 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
+  env: {
+    HOST: 'https://images.forldn.cn/',
+    PORT: 3000
+  },
 
   /*
   ** Headers of the page
@@ -29,8 +33,8 @@ module.exports = {
   css: [
     'element-ui/lib/theme-chalk/index.css',
     {
-        src: 'assets/base.less',
-        lang: 'less'
+      src: 'assets/base.less',
+      lang: 'less'
     }
   ],
 
