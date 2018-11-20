@@ -54,7 +54,7 @@ export default {
     Upload
   },
   async asyncData({ app }) {
-    const res = await app.$axios.$get("/api/images");
+    const res = await app.$axios.$get("/images");
     return {
       images: res.data.map(img => {
         return {
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     async getImages() {
-      const res = await this.$axios.$get("/api/images");
+      const res = await this.$axios.$get("/images");
       this.images = res.data.map(img => {
         return {
           src: img,
@@ -91,7 +91,7 @@ export default {
         .then(function(compressedFile) {
           var form = new FormData();
           form.append("file", compressedFile);
-          _this.$axios.post("/api/uploadPic", form).then(_this.getImages)
+          _this.$axios.post("/uploadPic", form).then(_this.getImages)
         })
         .catch(function(error) {
           console.log(error.message);

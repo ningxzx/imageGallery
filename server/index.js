@@ -2,7 +2,6 @@ const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 
-import config from './config'
 import middlewares from './middlewares'
 import serve from 'koa-static'
 import path from 'path'
@@ -10,7 +9,7 @@ import path from 'path'
 
 const app = new Koa()
 const host = process.env.HOST || 'localhost'
-const port = process.env.PORT || config.server.port
+const port = process.env.PORT || 3000
 
 // Import and Set Nuxt.js options
 let nuxtConfig = require('../nuxt.config.js')
@@ -27,7 +26,7 @@ async function start() {
   }
 
   // access to local file
-  const gallery = path.resolve(__dirname, config.static_dir.gallery);
+  const gallery = path.resolve(__dirname,  "../gallery");
   app.use(serve(gallery))
 
 

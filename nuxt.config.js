@@ -2,10 +2,6 @@ const pkg = require('./package')
 
 module.exports = {
   mode: 'universal',
-  env: {
-    HOST: 'https://images.forldn.cn/',
-    PORT: 3000
-  },
 
   /*
   ** Headers of the page
@@ -56,9 +52,16 @@ module.exports = {
   ** Axios module configuration
   */
   axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+    retry: { retries: 3 },
+    //开发模式下开启debug
+    debug: process.env._ENV == "production" ? false : true,
+    //设置不同环境的请求地址
+    baseURL:
+      process.env._ENV == "production"
+        ? "'https://images.forldn.cn/api"
+        : "http://localhost:3000/api",
+    withCredentials: true
   },
-
   /*
   ** Build configuration
   */
