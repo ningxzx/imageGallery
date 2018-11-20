@@ -22,7 +22,7 @@
       title="上传图片"
       :visible.sync="centerDialogVisible"
       width="30%">
-      <el-upload class="upload-demo"  action="/api/uploadPic"  :limit="5" drag multiple>
+      <el-upload class="upload-demo"  action="/api/uploadPic"  :limit="5" drag multiple :http-request="upload">
         <i class="el-icon-upload"></i>
         <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -44,6 +44,7 @@
 
 import { getImageName, compressImage } from "~/utils";
 import { Dialog, Upload } from "element-ui";
+import imageCompression from "browser-image-compression";
 
 const host = "http://localhost:3000/";
 
@@ -70,9 +71,31 @@ export default {
       centerDialogVisible: false
     };
   },
-  methods:{
-    uploadFile(){
-
+  methods: {
+    async getImages() {
+      const res = await this.$axios.$get("/api/images");
+      this.images = res.data.map(img => {
+        return {
+          src: img,
+          name: getImageName(img)
+        };
+      });
+    },
+    upload(param) {
+      const _this = this;
+      // 文件对象
+      var imageFile = param.file;
+      var maxSizeMB = 0.3;
+      var maxWidthOrHeight = 1280; // compressedFile will scale down by ratio to a point that width or height is smaller than maxWidthOrHeight
+      imageCompression(imageFile, maxSizeMB, maxWidthOrHeight) // maxSizeMB, maxWidthOrHeight are optional
+        .then(function(compressedFile) {
+          var form = new FormData();
+          form.append("file", compressedFile);
+          _this.$axios.post("/api/uploadPic", form).then(_this.getImages)
+        })
+        .catch(function(error) {
+          console.log(error.message);
+        });
     }
   }
 };
