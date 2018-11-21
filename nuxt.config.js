@@ -1,5 +1,4 @@
 const pkg = require('./package')
-require("@babel/polyfill")
 
 module.exports = {
   mode: 'universal',
