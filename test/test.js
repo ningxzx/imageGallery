@@ -1,7 +1,8 @@
+
 import assert from 'assert';
 import { getImageName } from '../utils';
 
-describe('utils', function () {
+describe('工具方法', function () {
     describe('#转换图片名称在前台显示', function () {
         it('20181120-botswana-littleElephant.jpeg should return little elephant', function () {
             assert.equal(getImageName('20181120-botswana-littleElephant.jpeg'), 'little elephant');
