@@ -6,7 +6,7 @@
   "private": true,
   "babel": {
     "presets": [
-      "es2015"
+      "backpack"
     ]
   },
   "scripts": {
@@ -21,6 +21,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
     "async-busboy": "^0.7.0",
+    "babel-preset-backpack": "^0.8.2",
     "browser-image-compression": "0.0.3",
     "consola": "^2.2.6",
     "cross-env": "^5.2.0",
