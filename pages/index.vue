@@ -9,15 +9,25 @@
         <p>death like autumn leaves</p>
       </div>
     </div>
-    <ul class="image-list">
-      <li class="image-card" v-for="(image,index) in images" :key="index" v-if="images.length">
-          <div class="image-wrapper">
-            <div class="image" :style="{backgroundImage:`url(${host+image.src})`}"></div>
-            <p class="image-name">{{image.name}}</p>
-            <p class="image-date">{{image.date||'2019-09-01'}}</p>
-          </div>
-      </li>
-    </ul>
+    <div class="content">
+      <div class="filter-bar">
+        <div class="perspective">
+          <Perspective :icons="['calender']"/>
+        </div>
+        <div class="searchbox">
+          <input type="text" placeholder="你在找什么呢">
+        </div>
+      </div>
+      <ul class="image-list">
+        <li class="image-card" v-for="(image,index) in images" :key="index" v-if="images.length">
+            <div class="image-wrapper">
+              <div class="image" :style="{backgroundImage:`url(/${image.src})`}"></div>
+              <p class="image-name">{{image.name}}</p>
+              <p class="image-date">{{image.date||'2019-09-01'}}</p>
+            </div>
+        </li>
+      </ul>
+    </div>
     <el-dialog
       title="上传图片"
       :visible.sync="centerDialogVisible"
@@ -42,16 +52,22 @@
  * 上传图片ui待优化
  */
 
+import perspective from "~/components/index.js"
+import {a} from "~/components/index.js"
+import  Perspective1  from "~/components/Perspective.vue"
 import { getImageName, compressImage } from "~/utils";
 import { Dialog, Upload } from "element-ui";
 import imageCompression from "browser-image-compression";
 
-const host = "http://localhost:3000/";
 
+console.log(perspective.a)
+console.log(a)
+console.log(Perspective1)
 export default {
   components: {
     Dialog,
-    Upload
+    Upload,
+    // Perspective
   },
   async asyncData({ app }) {
     const res = await app.$axios.$get("/images");
@@ -67,7 +83,6 @@ export default {
   data() {
     return {
       images: [],
-      host,
       centerDialogVisible: false
     };
   },
@@ -91,7 +106,7 @@ export default {
         .then(function(compressedFile) {
           var form = new FormData();
           form.append("file", compressedFile);
-          _this.$axios.post("/uploadPic", form).then(_this.getImages)
+          _this.$axios.post("/uploadPic", form).then(_this.getImages);
         })
         .catch(function(error) {
           console.log(error.message);
@@ -102,67 +117,5 @@ export default {
 </script>
 
 <style lang="less">
-.container {
-  position: relative;
-  padding-left: 200px;
-  box-sizing: border-box;
-  width: 100%;
-  .menu {
-    position: absolute;
-    width: 200px;
-    left: 0;
-    .plus {
-      position: fixed;
-      background: url("../assets/images/plus.png") no-repeat;
-      background-position: center;
-      height: 60px;
-      width: 200px;
-      background-size: 50px 50px;
-      margin-top: 40px;
-      cursor: pointer;
-    }
-    .poem {
-      position: fixed;
-      bottom: 40px;
-      width: 200px;
-      text-align: center;
-      box-sizing: border-box;
-      padding: 10px;
-      font-size: 14px;
-      font-family: "BukhariScript";
-    }
-  }
-  .image-list {
-    width: 100%;
-    padding: 20px;
-    padding-left: 19px;
-    box-sizing: border-box;
-    border-left: 1px solid #000;
-    min-height: 100%;
-    .image-card {
-      display: inline-block;
-      list-style: none;
-      font-size: 0;
-      .image-wrapper {
-        border-radius: 6px;
-        padding: 20px;
-        .image {
-          width: 300px;
-          height: 200px;
-          background-size: cover;
-          background-position: center center;
-          background-repeat: no-repeat;
-          border-radius: 6px;
-        }
-        .image-date,
-        .image-name {
-          font-family: "BukhariScript";
-          margin-top: 10px;
-          font-size: 14px;
-          text-align: center;
-        }
-      }
-    }
-  }
-}
+@import "./index.less";
 </style>
