@@ -12,7 +12,7 @@
     <div class="content">
       <div class="filter-bar">
         <div class="perspective">
-          <Perspective :icons="['calender']"/>
+          <Perspective :sortTypeList="sortTypeList" :curSortType="curSortType"/>
         </div>
         <div class="searchbox">
           <input type="text" placeholder="你在找什么呢">
@@ -52,22 +52,16 @@
  * 上传图片ui待优化
  */
 
-import perspective from "~/components/index.js"
-import {a} from "~/components/index.js"
-import  Perspective1  from "~/components/Perspective.vue"
 import { getImageName, compressImage } from "~/utils";
 import { Dialog, Upload } from "element-ui";
+import Perspective from "~/components/Perspective.vue";
 import imageCompression from "browser-image-compression";
 
-
-console.log(perspective.a)
-console.log(a)
-console.log(Perspective1)
 export default {
   components: {
     Dialog,
     Upload,
-    // Perspective
+    Perspective
   },
   async asyncData({ app }) {
     const res = await app.$axios.$get("/images");
@@ -83,7 +77,9 @@ export default {
   data() {
     return {
       images: [],
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      sortTypeList:['calender','grid','list','location','tag'],
+      curSortType:'grid'
     };
   },
   methods: {
