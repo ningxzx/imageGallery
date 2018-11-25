@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span v-for="(icon,index) in sortTypeList" :key="index" :class="['icon',icon,{'active':curSortType===icon}]"  ></span>
+        <span v-for="(type,index) in sortTypeList" :key="index" :class="['icon',type,{'active':curSortType===type}]"  @click.stop="changeSortType(type)"></span>
     </div>
 </template>
 <script>
@@ -15,6 +15,11 @@ export default {
       type: String,
       default: ""
     },
+  },
+  methods:{
+      changeSortType(type){
+          this.curSortType = type
+      }
   }
 };
 </script>
