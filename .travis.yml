@@ -8,8 +8,7 @@ before_install:
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 after_success:
-- rsync -az --delete ./* root@60.205.191.214:/var/images/index/
-- ssh root@60.205.191.214 "cd /var/images/index/;pm2 delete nuxt;npm run build;pm2 start npm --name nuxt -- start"
+- ssh root@60.205.191.214 "cd /var/images/index/;git pull ;pm2 delete nuxt;npm run build;pm2 start npm --name nuxt -- start"
 
 notifications:
   email:
