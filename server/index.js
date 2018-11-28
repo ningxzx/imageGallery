@@ -8,7 +8,7 @@ import path from 'path'
 
 
 const app = new Koa()
-const host = process.env.HOST || 'localhost'
+const host = process.env.NODE_ENV === 'production'? 'https://images.forldn.cn' : 'localhost'
 const port = process.env.PORT || 3000
 
 // Import and Set Nuxt.js options

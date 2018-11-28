@@ -13,7 +13,7 @@
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --exec babel-node --watch server",
     "test": "mocha --require babel-register",
     "build": "nuxt build",
-    "start": "cross-env NODE_ENV=production babel-node server/index.js",
+    "start": "cross-env NODE_ENV=production  babel-node server/index.js",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
@@ -22,6 +22,7 @@
     "@nuxtjs/axios": "^5.0.0",
     "async-busboy": "^0.7.0",
     "browser-image-compression": "0.0.3",
+    "clipboard-copy": "^2.0.1",
     "consola": "^2.2.6",
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.6",

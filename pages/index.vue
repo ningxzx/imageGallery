@@ -22,8 +22,8 @@
         <li class="image-card" v-for="(image,index) in images" :key="index" v-if="images.length">
             <div class="image-wrapper">
               <div class="image" :style="{backgroundImage:`url(/${image.src})`}"></div>
-              <p class="image-name">{{image.name}}</p>
-              <p class="image-date">{{image.date||'2019-09-01'}}</p>
+              <p class="image-name"><span @click="copyName(image)">{{image.name}}</span></p>
+              <p class="image-date"><span>{{image.date||'2019-09-01'}}</span></p>
             </div>
         </li>
       </ul>
@@ -56,6 +56,7 @@ import { getImageName, compressImage } from "~/utils";
 import { Dialog, Upload } from "element-ui";
 import Perspective from "~/components/Perspective.vue";
 import imageCompression from "browser-image-compression";
+import copy from "clipboard-copy";
 
 export default {
   components: {
@@ -107,6 +108,15 @@ export default {
         .catch(function(error) {
           console.log(error.message);
         });
+    },
+    copyName(image){
+      const imagePath = `htts://images.forldn.cn/${image.src}`
+      copy(imagePath).then(()=>{
+         this.$message({
+          message: '图片路径复制成功',
+          type: 'success'
+        });
+      })
     }
   }
 };
