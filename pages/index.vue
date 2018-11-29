@@ -1,4 +1,4 @@
-<template> 
+<template>
   <section class="container">
     <div class="menu">
       <div class="plus" @click.prevent="centerDialogVisible=true"></div>
@@ -20,21 +20,22 @@
       </div>
       <ul class="image-list">
         <li class="image-card" v-for="(image,index) in images" :key="index" v-if="images.length">
-            <div class="image-wrapper">
-              <div class="image" :style="{backgroundImage:`url(/${image.src})`}"></div>
-              <p class="image-name"><span @click="copyName(image)">{{image.name}}</span></p>
-              <p class="image-date"><span>{{image.date||'2019-09-01'}}</span></p>
-            </div>
+          <ImageCard
+            :src="image.src"
+            :name="image.name"
+            :date="image.date"
+            v-on:imageUpdated="getImages"
+          />
         </li>
       </ul>
     </div>
-    <el-dialog
-      title="上传图片"
-      :visible.sync="centerDialogVisible"
-      width="30%">
-      <el-upload class="upload-demo"  :limit="5" drag multiple :http-request="upload">
+    <el-dialog title="上传图片" :visible.sync="centerDialogVisible" width="30%">
+      <el-upload class="upload-demo" :limit="5" drag multiple :http-request="upload">
         <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__text">
+          将文件拖到此处，或
+          <em>点击上传</em>
+        </div>
         <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
       </el-upload>
       <span slot="footer" class="dialog-footer">
@@ -52,17 +53,18 @@
  * 上传图片ui待优化
  */
 
-import { getImageName, compressImage } from "~/utils";
+import { getImageName } from "~/utils";
 import { Dialog, Upload } from "element-ui";
 import Perspective from "~/components/Perspective.vue";
+import ImageCard from "~/components/imageCard.vue";
 import imageCompression from "browser-image-compression";
-import copy from "clipboard-copy";
 
 export default {
   components: {
     Dialog,
     Upload,
-    Perspective
+    Perspective,
+    ImageCard
   },
   async asyncData({ app }) {
     const res = await app.$axios.$get("/api/images");
@@ -79,8 +81,8 @@ export default {
     return {
       images: [],
       centerDialogVisible: false,
-      sortTypeList:['calender','grid','list','location','tag'],
-      curSortType:'grid'
+      sortTypeList: ["calender", "grid", "list", "location", "tag"],
+      curSortType: "grid"
     };
   },
   methods: {
@@ -108,15 +110,6 @@ export default {
         .catch(function(error) {
           console.log(error.message);
         });
-    },
-    copyName(image){
-      const imagePath = `htts://images.forldn.cn/${image.src}`
-      copy(imagePath).then(()=>{
-         this.$message({
-          message: '图片路径复制成功',
-          type: 'success'
-        });
-      })
     }
   }
 };

@@ -14,3 +14,4 @@ export const getImageName = compose(
     replace(/(?<=\w+)([A-Z])/g,addBlank),
     replace(/(.*-)?([^-]+)\.\w+$/, '$2')
 )
+export const replaceName = replace(/(?<=.*-)([^-]*)(?=\.\w+$)/)
