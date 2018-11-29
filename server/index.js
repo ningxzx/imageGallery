@@ -8,7 +8,7 @@ import path from 'path'
 
 
 const app = new Koa()
-const host = process.env.NODE_ENV === 'production'? 'https://images.forldn.cn' : 'localhost'
+const host = process.env.HOST || 'localhost'
 const port = process.env.PORT || 3000
 
 // Import and Set Nuxt.js options
@@ -35,6 +35,7 @@ async function start() {
 
   app.use(async (ctx, next) => {
     await next()
+    ctx.set("Access-Control-Allow-Origin", "*");
     ctx.status = 200 // koa defaults to 404 when it sees that status is unset
 
     return new Promise((resolve, reject) => {
