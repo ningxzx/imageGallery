@@ -84,7 +84,7 @@ export default {
           this.imageName = newName;
           this.newName = "";
           this.editable = false;
-          this.$emit("imageUpdated");
+        //   this.$emit("imageUpdated");
         }
       });
     },

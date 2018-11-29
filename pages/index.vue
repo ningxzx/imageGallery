@@ -24,7 +24,6 @@
             :src="image.src"
             :name="image.name"
             :date="image.date"
-            v-on:imageUpdated="getImages"
           />
         </li>
       </ul>
