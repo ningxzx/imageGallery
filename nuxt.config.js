@@ -57,7 +57,7 @@ module.exports = {
     debug: process.env._ENV == "production" ? false : true,
     //设置不同环境的请求地址
     baseURL:
-      process.env._ENV == "production"
+      process.env.NODE_ENV === "production"
         ? "'https://images.forldn.cn/api"
         : "http://localhost:3000/api",
     withCredentials: true
