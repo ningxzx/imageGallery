@@ -16,7 +16,7 @@ export default (app) => {
       if (ctx.status === 404 && ctx.res.headersSent === false) {
         ctx.throw(404)
       }
-
+      ctx.set("Access-Control-Allow-Origin", "*");
       // Use this when you want to format the 200 res further.
       // e.g. {"status":200,"data":{"message":"Hello home sample!"}}
       // else, you get, e.g. {"message":"Hello home sample!"}
