@@ -3,7 +3,6 @@ node_js: stable
 os: osx
 addons:
   ssh_known_hosts: 60.205.191.214
-cache: npm
 before_install:
 - openssl aes-256-cbc -K $encrypted_b9005e32c66a_key -iv $encrypted_b9005e32c66a_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
