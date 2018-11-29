@@ -58,8 +58,8 @@ module.exports = {
     // //设置不同环境的请求地址
     browserBaseURL:
       process.env.NODE_ENV === "production"
-        ? "'https://images.forldn.cn/api/"
-        : "http://localhost:3000/api/",
+        ? "https://images.forldn.cn"
+        : "http://localhost:3000",
     // withCredentials: true
   },
   /*
