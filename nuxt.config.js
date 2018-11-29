@@ -56,10 +56,10 @@ module.exports = {
     // //开发模式下开启debug
     // debug: process.env._ENV == "production" ? false : true,
     // //设置不同环境的请求地址
-    // baseURL:
-    //   process.env.NODE_ENV === "production"
-    //     ? "'https://images.forldn.cn"
-    //     : "http://localhost:3000",
+    browserBaseURL:
+      process.env.NODE_ENV === "production"
+        ? "'https://images.forldn.cn/api/"
+        : "http://localhost:3000/api/",
     // withCredentials: true
   },
   /*
