@@ -1,6 +1,6 @@
 <template>
   <div class="image-wrapper">
-    <div class="image" :style="{backgroundImage:`url(/${src})`}"></div>
+    <div class="image" :style="{backgroundImage:`url(/${encodeURIComponent(src)})`}"></div>
     <div
       class="image-name"
       @mouseover="focusName=true"
