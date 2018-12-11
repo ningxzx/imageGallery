@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     copyName(src) {
-      const imagePath = `htts://images.forldn.cn/${src}`;
+      const imagePath = `https://images.forldn.cn/${src}`;
       copy(imagePath).then(() => {
         this.$message({
           message: "图片路径复制成功",

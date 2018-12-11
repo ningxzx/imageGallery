@@ -15,7 +15,7 @@
           <Perspective :sortTypeList="sortTypeList" :curSortType="curSortType"/>
         </div>
         <div class="searchbox">
-          <input type="text" placeholder="你在找什么呢">
+          <input type="text" placeholder="你在找什么呢" v-model="keyword" @change="searchImage">
         </div>
       </div>
       <ul class="image-list">
@@ -81,7 +81,8 @@ export default {
       images: [],
       centerDialogVisible: false,
       sortTypeList: ["calender", "grid", "list", "location", "tag"],
-      curSortType: "grid"
+      curSortType: "grid",
+      keyword:''
     };
   },
   methods: {
@@ -109,6 +110,9 @@ export default {
         .catch(function(error) {
           console.log(error.message);
         });
+    },
+    searchImage(){
+      
     }
   }
 };

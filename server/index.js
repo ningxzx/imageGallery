@@ -24,6 +24,8 @@ async function start() {
     const builder = new Builder(nuxt)
     await builder.build()
   }
+  let a={a:1}
+  console.log({...a})
 
   // access to local file
   const gallery = path.resolve(__dirname,  "../gallery");
